@@ -30,9 +30,16 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#FF6E4E"
         }
-      ]
+      ],
+      [
+        "expo-asset",
+        {
+          "assets": ["path/to/file.png", "path/to/directory"]
+        }
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
