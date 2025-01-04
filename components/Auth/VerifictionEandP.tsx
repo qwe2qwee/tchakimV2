@@ -16,6 +16,7 @@ import CustomButton from "../ui/CustomButton";
 import ErrorModal from "../ui/ErrorModal";
 import { icons } from "../../constants";
 import { useUserStore } from "@/store/userStore";
+import { translationsVerificationForgot } from "@/constants/lang";
 
 interface VerificationProps {
   ismodal: boolean;
@@ -45,15 +46,12 @@ const VerifictionEandP: React.FC<VerificationProps> = ({
   const [hasResentOtp, setHasResentOtp] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const { fetchBasicUserData } = useUserStore();
+  const { language, fetchBasicUserData } = useUserStore();
 
-  // Identifier for OTP (email or phone)
+  const t = translationsVerificationForgot[language]; // Dynamic translations based on language
   const identifier = isphone ? `+966${form?.value}` : form?.value;
 
-  // Show error modal
   const showError = (message: string) => setError(message);
-
-  // Clear error modal
   const clearError = () => setError(null);
 
   const handleResendOtp = async () => {
@@ -66,16 +64,16 @@ const VerifictionEandP: React.FC<VerificationProps> = ({
         await sendOtpToEmail(identifier!);
       }
       setHasResentOtp(true);
-      showError("تم إرسال رمز التحقق مرة أخرى.");
+      showError(t.codeResent);
     } catch (error) {
       console.error("Error resending OTP:", error);
-      showError("حدث خطأ أثناء إعادة إرسال رمز التحقق.");
+      showError(t.resendOtpError);
     }
   };
 
   const handleVerifyOtp = async () => {
     if (otp.length < 6) {
-      showError("يرجى إدخال رمز التحقق الكامل.");
+      showError(t.fullOtpRequired);
       return;
     }
 
@@ -86,29 +84,27 @@ const VerifictionEandP: React.FC<VerificationProps> = ({
     try {
       let userIdToVerify = userId as any;
 
-      // Fetch user ID if not already provided
       if (!userIdToVerify) {
         userIdToVerify = await getUserIdByPhoneOrEmail(identifier!);
         if (!userIdToVerify) {
-          showError("فشل في العثور على المستخدم.");
+          showError(t.userNotFound);
           return;
         }
       }
 
-      // Verify OTP and reset password
       if (isphone) {
         await verifyOtpAndResetPassword(userIdToVerify, otp);
       } else {
         await completePasswordReset(userIdToVerify, otp);
       }
 
-      showError("تم التحقق بنجاح.");
+      showError(t.otpSuccess);
       await fetchBasicUserData();
 
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error("Error verifying OTP:", error);
-      showError("فشل في التحقق من الرمز.");
+      showError(t.otpError);
     } finally {
       setIsSubmitting(false);
     }
@@ -128,7 +124,6 @@ const VerifictionEandP: React.FC<VerificationProps> = ({
       backdropTransitionOutTiming={0}
     >
       <View className="w-full h-3/4 justify-start items-center bg-white">
-        {/* Close Button */}
         <View
           style={{
             width: "100%",
@@ -143,58 +138,52 @@ const VerifictionEandP: React.FC<VerificationProps> = ({
           </TouchableOpacity>
         </View>
 
-        {/* Content */}
         <Image
           source={icons.sendpassLogo}
           resizeMode="contain"
           className="w-36 h-48"
         />
         <Text className="mb-5 mt-4 text-primary font-sans-arabic-semibold text-base">
-          {isphone ? "التحقق من رقم الجوال" : "التحقق من البريد الإلكتروني"}
+          {isphone ? t.verifyPhone : t.verifyEmail}
         </Text>
         <Text className="mb-5 text-textLight font-bold text-base">
-          {isphone
-            ? "ادخل رمز التحقق المرسل على رقمك"
-            : "ادخل رمز التحقق المرسل على بريدك الإلكتروني"}
+          {isphone ? t.otpPromptPhone : t.otpPromptEmail}
         </Text>
         <Text className="mb-5 text-textLight font-bold text-base">
           {identifier}
         </Text>
 
-        {/* OTP Inputs */}
         <CustomOtpInputs
           numberOfInputs={6}
           onChangeOtp={(value) => setOtp(value)}
         />
 
-        {/* Submit Button */}
         <CustomButton
-          title="متابعة"
+          title={t.continue}
           containerStyles="w-40 my-4 py-1 bg-primary mb-5"
           handlePress={handleVerifyOtp}
           textStyles="text-white"
           isLoading={isSubmitting}
         />
 
-        {/* Resend OTP */}
         <TouchableOpacity
           disabled={hasResentOtp}
           onPress={handleResendOtp}
           className="mt-2"
         >
           <Text className={hasResentOtp ? "text-red-500" : ""}>
-            {hasResentOtp ? "تم إعادة إرسال الكود" : "إعادة إرسال الكود"}
+            {hasResentOtp ? t.codeResent : t.resendCode}
           </Text>
         </TouchableOpacity>
       </View>
       <StatusBar backgroundColor="#fff" style="dark" />
 
-      {/* Error Modal */}
       <ErrorModal
         isVisible={!!error}
         message={error || ""}
         onClose={clearError}
         isSecuss={false}
+        language={language}
       />
     </Modal>
   );

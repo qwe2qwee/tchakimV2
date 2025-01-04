@@ -72,12 +72,14 @@ import heartFill from "../assets/icons/heartFill.png";
 
 import report from "../assets/icons/report.png";
 import banUser from "../assets/icons/banUser.png";
+import authLogo from "../assets/icons/AuthLogo.png";
 
 export default {
   starpp,
   dateIn,
   add,
   profileIn,
+  authLogo,
   phoneIn,
   profileppp,
   lprofile,

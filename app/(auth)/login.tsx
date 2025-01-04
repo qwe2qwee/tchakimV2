@@ -14,6 +14,9 @@ import FormField from "@/components/Auth/FormField";
 import CustomButton from "@/components/ui/CustomButton";
 import ErrorModal from "@/components/ui/ErrorModal";
 import Toast from "react-native-toast-message";
+import { translationLogin } from "@/constants/lang";
+
+// Translation object
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -22,87 +25,72 @@ const SignIn = () => {
     phone: false,
     password: false,
   });
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { fetchBasicUserData } = useUserStore();
+  const { fetchBasicUserData, language } = useUserStore();
+  const t = translationLogin[language]; // Get translations based on selected language
 
   const showToast = () => {
     Toast.show({
       type: "success",
-      text1: "login",
-      text2: " welcome to your app 👋",
+      text1: t.login,
+      text2: t.loginWelcome,
     });
   };
 
-  // Show error modal
   const showError = (message: string, isSuccess: boolean = false) => {
     setErrorMessage(message);
     setIsSuccess(isSuccess);
     setIsModalVisible(true);
   };
 
-  // Close error modal
   const handleClose = () => {
     setIsModalVisible(false);
     setErrorMessage("");
   };
 
-  // Handle input changes
   const handleChangeText = (field: string, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [field]: value }));
     setFieldError((prevError) => ({ ...prevError, [field]: false }));
   };
 
-  // Handle form submission
   const handleSubmit = async () => {
     const { phone, password } = form;
 
-    // Validate input fields
     if (!phone.trim() || !password.trim()) {
       setFieldError({
         phone: !phone.trim(),
         password: !password.trim(),
       });
-      showError("الرجاء تعبئة جميع الحقول", false);
+      showError(t.errorFields, false);
       return;
     }
 
     setLoading(true);
     try {
-      // Validate phone number format
       const phoneRegex = /^[0-9]{9}$/;
       if (!phoneRegex.test(phone)) {
         setFieldError((prev) => ({ ...prev, phone: true }));
-        showError("رقم الجوال غير صالح", false);
+        showError(t.invalidPhone, false);
         return;
       }
 
-      // Fetch email by phone number
       const email = await getEmailByPhoneNumber(`+966${phone.trim()}`);
       if (!email) {
         setFieldError((prev) => ({ ...prev, phone: true }));
-        showError("لم يتم العثور على مستخدم لهذا الرقم", false);
+        showError(t.userNotFound, false);
         return;
       }
 
-      // Sign in
       await signIn(email, password.trim());
-
-      // Fetch user data only if sign-in is successful
       await fetchBasicUserData();
-
-      // Navigate to home page
       showToast();
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/home");
     } catch (error: any) {
       console.error("Error during sign-in:", error.message);
-      showError(
-        error.message || "حدث خطأ أثناء تسجيل الدخول، حاول مرة أخرى",
-        false
-      );
+      showError(error.message || t.loginError, false);
     } finally {
       setLoading(false);
     }
@@ -121,15 +109,15 @@ const SignIn = () => {
         <View className="bg-secondary flex-1 w-full px-4 py-2 justify-start items-center">
           <View className="w-full items-center py-10">
             <FormField
-              title="Phone"
-              placeholder="رقم الجوال"
+              title={"Phone"}
+              placeholder={t.phonePlaceholder}
               value={form.phone}
               handleChangeText={(value) => handleChangeText("phone", value)}
               length={9}
             />
             <FormField
-              title="Password"
-              placeholder="كلمة المرور"
+              title={"Password"}
+              placeholder={t.passwordPlaceholder}
               value={form.password}
               handleChangeText={(value) => handleChangeText("password", value)}
             />
@@ -139,7 +127,7 @@ const SignIn = () => {
                 onPress={() => router.push("/(auth)/reset/email")}
               >
                 <Text className="text-[#F61F1F] text-xs underline">
-                  هل نسيت كلمة السر؟
+                  {t.forgotPassword}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -147,17 +135,17 @@ const SignIn = () => {
 
           <View className="w-full items-center flex-grow pt-2">
             <CustomButton
-              title="تسجيل الدخول"
+              title={t.login}
               handlePress={handleSubmit}
               containerStyles="my-2"
               isLoading={loading}
             />
             <CustomButton
-              title="الدخول كزائر"
-              handlePress={() => router.push("/(tabs)")}
+              title={t.guestLogin}
+              con
+              handlePress={() => router.push("/(tabs)/home")}
               containerStyles="bg-[#E4E4E4] my-2"
               textStyles="text-textDark"
-              con
             />
           </View>
         </View>

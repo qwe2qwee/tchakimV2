@@ -33,3 +33,13 @@ export interface BanStatus {
   reason: string | null;
   error?: any;
 }
+
+export interface ProductDataprops {
+  salesName: string;
+  description: string;
+  selectedCity: string;
+  price: number;
+  categories: string[];
+  mainPhoto: string;
+  descriptionPhotos: string[];
+}

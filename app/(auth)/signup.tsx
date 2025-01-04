@@ -2,10 +2,12 @@ import FormField from "@/components/Auth/FormField";
 import VerificationPage from "@/components/Auth/VerificationPage";
 import CustomButton from "@/components/ui/CustomButton";
 import ErrorModal from "@/components/ui/ErrorModal";
+import { translationSignUp } from "@/constants/lang";
 import { isEmailExisting, isPhoneNumberExisting } from "@/lib/api";
 import { UpdatePhoneNumberAndSendOTP } from "@/lib/UpdatePhoneNumberAndSendOTP";
+import { useUserStore } from "@/store/userStore";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   ScrollView,
@@ -15,6 +17,8 @@ import {
   Platform,
 } from "react-native";
 import Toast from "react-native-toast-message";
+
+// Translation object
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -32,6 +36,9 @@ export default function SignUp() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const { language } = useUserStore(); // Assuming language state is in user store
+  const t = translationSignUp[language]; // Get translations based on selected language
+
   const showError = (message: string, isSuccess: boolean) => {
     setErrorMessage(message);
     setIsSuccess(isSuccess);
@@ -46,8 +53,8 @@ export default function SignUp() {
   const showToast = () => {
     Toast.show({
       type: "success",
-      text1: "sign up",
-      text2: " welcome to your app 👋",
+      text1: t.signUp,
+      text2: t.signupWelcome,
     });
   };
 
@@ -59,46 +66,40 @@ export default function SignUp() {
     const { name, phone, email, password, passwordsure } = form;
 
     if (!name || !phone || !email || !password || !passwordsure) {
-      showError("يرجى ملء جميع الحقول.", false);
+      showError(t.fieldError, false);
       return;
     }
 
     if (password !== passwordsure) {
-      showError("كلمات المرور غير متطابقة.", false);
+      showError(t.passwordMismatch, false);
       return;
     }
 
     if (!email.includes("@")) {
-      showError("تنسيق البريد الإلكتروني غير صحيح.", false);
+      showError(t.invalidEmail, false);
       return;
     }
 
     try {
       setIsSubmitting(true);
 
-      // Check if phone already exists
       const phoneExists = await isPhoneNumberExisting(`+966${phone}`);
       if (phoneExists) {
-        showError("رقم الهاتف مسجل بالفعل. الرجاء استخدام رقم آخر.", false);
+        showError(t.phoneExists, false);
         return;
       }
 
-      // Check if email already exists
       const emailExists = await isEmailExisting(email);
       if (emailExists) {
-        showError(
-          "البريد الإلكتروني مسجل بالفعل. الرجاء استخدام بريد آخر.",
-          false
-        );
+        showError(t.emailExists, false);
         return;
       }
 
-      // Send OTP
       await UpdatePhoneNumberAndSendOTP(form);
       setShowOtpModal(true);
     } catch (error: any) {
       console.error("Error during sign-up:", error.message || error);
-      showError("حدث خطأ أثناء تسجيل الحساب. حاول مرة أخرى.", false);
+      showError(t.signupError, false);
     } finally {
       setIsSubmitting(false);
     }
@@ -107,7 +108,7 @@ export default function SignUp() {
   const handleOtpSuccess = () => {
     setShowOtpModal(false);
     showToast();
-    router.replace("/(tabs)");
+    router.replace("/(tabs)/home");
   };
 
   const closeOtpModal = () => {
@@ -126,33 +127,33 @@ export default function SignUp() {
       >
         <View className="flex justify-center items-center">
           <FormField
-            title="Name"
-            placeholder="الاسم"
+            title={"Name"}
+            placeholder={t.namePlaceholder}
             value={form.name}
             handleChangeText={(value) => handleChangeText("name", value)}
           />
           <FormField
-            title="Email"
-            placeholder="البريد الإلكتروني"
+            title={"Email"}
+            placeholder={t.emailPlaceholder}
             value={form.email}
             handleChangeText={(value) => handleChangeText("email", value)}
           />
           <FormField
-            title="Phone"
+            title={"Phone"}
             length={9}
-            placeholder="رقم الجوال"
+            placeholder={t.phonePlaceholder}
             value={form.phone}
             handleChangeText={(value) => handleChangeText("phone", value)}
           />
           <FormField
-            title="Password"
-            placeholder="كلمة المرور"
+            title={"Password"}
+            placeholder={t.passwordPlaceholder}
             value={form.password}
             handleChangeText={(value) => handleChangeText("password", value)}
           />
           <FormField
-            title="Password"
-            placeholder="تأكيد كلمة المرور"
+            title={"Password"}
+            placeholder={t.confirmPasswordPlaceholder}
             value={form.passwordsure}
             handleChangeText={(value) =>
               handleChangeText("passwordsure", value)
@@ -165,18 +166,25 @@ export default function SignUp() {
               onValueChange={setIsEnabled}
               trackColor={{ true: "#FF6E4E" }}
             />
-            <Text>أوافق على الشروط والسياسات</Text>
+            <Text>
+              {t.agreeText}{" "}
+              <Text
+                className="text-primary"
+                onPress={() => router.push("/(auth)/TermsPage")}
+              >
+                {t.policiesText}
+              </Text>
+            </Text>
           </View>
 
           <CustomButton
-            title="تسجيل"
+            title={t.signUp}
             isDisable={!isEnabled}
             handlePress={handleSubmit}
             isLoading={isSubmitting}
           />
         </View>
 
-        {/* OTP Modal */}
         {showOtpModal && (
           <VerificationPage
             ismodal={showOtpModal}

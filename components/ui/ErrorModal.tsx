@@ -1,3 +1,4 @@
+import { translationModalReset } from "@/constants/lang";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
@@ -5,17 +6,21 @@ import Modal from "react-native-modal";
 interface ErrorModalProps {
   isVisible: boolean; // Control the visibility of the modal
   message: string; // Error message to display
-  isSecuss?: boolean;
+  isSecuss?: boolean; // Indicates success or error state
   onClose: () => void; // Callback to close the modal
+  language?: "ar" | "en" | "fr"; // Language setting, defaults to Arabic
 }
+
+// Translations for multilingual support
 
 const ErrorModal: React.FC<ErrorModalProps> = ({
   isVisible,
   message,
   isSecuss,
   onClose,
+  language = "ar", // Default language is Arabic
 }) => {
-  console.log(isSecuss);
+  const t = translationModalReset[language];
 
   return (
     <Modal
@@ -27,12 +32,12 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
       useNativeDriver
     >
       <View style={styles.modalContainer}>
-        <Text style={[isSecuss ? styles.title2 : styles.title]}>
-          {isSecuss ? "نجاح" : "خطاء"}
+        <Text style={[isSecuss ? styles.titleSuccess : styles.titleError]}>
+          {isSecuss ? t.successTitle : t.errorTitle}
         </Text>
         <Text style={styles.message}>{message}</Text>
         <TouchableOpacity style={styles.button} onPress={onClose}>
-          <Text style={styles.buttonText}>موافق</Text>
+          <Text style={styles.buttonText}>{t.buttonText}</Text>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -47,13 +52,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
+  titleError: {
     fontSize: 18,
     fontWeight: "bold",
     color: "red",
     marginBottom: 10,
   },
-  title2: {
+  titleSuccess: {
     fontSize: 18,
     fontWeight: "bold",
     color: "green",

@@ -7,6 +7,9 @@ import CustomButton from "@/components/ui/CustomButton";
 import ErrorModal from "@/components/ui/ErrorModal"; // For better error handling UI
 import { useUserStore } from "@/store/userStore";
 import Toast from "react-native-toast-message";
+import { translationReset } from "@/constants/lang";
+
+// Translations object for multilingual support
 
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -14,13 +17,15 @@ const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { user, updateUserData } = useUserStore(); // Access user and updater function
+  const { user, updateUserData, language } = useUserStore(); // Access user, updater function, and language state
+
+  const t = translationReset[language]; // Get translations based on selected language
 
   const showToast = () => {
     Toast.show({
       type: "success",
-      text1: "تم",
-      text2: "تم تغيير كلمة المرور بنجاح.👋",
+      text1: t.successToastTitle,
+      text2: t.successToastMessage,
     });
   };
 
@@ -36,17 +41,17 @@ const ResetPassword = () => {
 
   const handleResetPassword = async () => {
     if (!newPassword || !confirmPassword) {
-      showError("يرجى إدخال كلمة المرور وكلمة المرور الجديدة.");
+      showError(t.errorEmptyFields);
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      showError("كلمات المرور غير متطابقة.");
+      showError(t.errorMismatch);
       return;
     }
 
     if (newPassword.length < 6) {
-      showError("كلمة المرور يجب أن تكون أطول من 6 أحرف.");
+      showError(t.errorShortPassword);
       return;
     }
 
@@ -55,9 +60,7 @@ const ResetPassword = () => {
     try {
       const oldPassword = user?.Details?.password;
       if (!oldPassword) {
-        throw new Error(
-          "كلمة المرور القديمة غير موجودة. الرجاء المحاولة لاحقًا."
-        );
+        throw new Error(t.errorOldPasswordMissing);
       }
 
       await ResetPasswordN(newPassword, oldPassword);
@@ -67,10 +70,10 @@ const ResetPassword = () => {
 
       showToast();
 
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/home");
     } catch (error: any) {
       console.error("Password reset failed:", error.message || error);
-      showError(error.message || "فشل في تغيير كلمة المرور. حاول مرة أخرى.");
+      showError(error.message || t.errorResetFailed);
     } finally {
       setIsLoading(false);
     }
@@ -78,23 +81,23 @@ const ResetPassword = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>إعادة تعيين كلمة المرور</Text>
+      <Text style={styles.title}>{t.title}</Text>
       <FormField
         title="Password"
-        placeholder="كلمة المرور الجديدة"
+        placeholder={t.newPasswordPlaceholder}
         value={newPassword}
         handleChangeText={(text) => setNewPassword(text.trim())}
       />
 
       <FormField
         title="Password"
-        placeholder="تأكيد كلمة المرور"
+        placeholder={t.confirmPasswordPlaceholder}
         value={confirmPassword}
         handleChangeText={(text) => setConfirmPassword(text.trim())}
       />
 
       <CustomButton
-        title="تأكيد"
+        title={t.confirmButton}
         handlePress={handleResetPassword}
         isLoading={isLoading}
       />

@@ -4,11 +4,37 @@ import { Text, View, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
 import { useUserStore } from "@/store/userStore";
 import CustomButton from "@/components/ui/CustomButton";
+import { initializeRealTimeNotifications } from "@/lib/notifications";
+import { requestNotificationPermissions } from "@/lib/notification";
 
 const App: React.FC = () => {
-  const user = useUserStore((state) => state.user); // Get user state from Zustand
+  const { user } = useUserStore();
   const loading = useUserStore((state) => state.loading); // Get loading state from Zustand
-  const { fetchUserDetails } = useUserStore();
+
+  useEffect(() => {
+    // Request notification permissions
+    const setupNotifications = async () => {
+      const hasPermissions = await requestNotificationPermissions();
+      if (!hasPermissions) {
+        console.warn("Notifications may not work without permission.");
+      }
+    };
+
+    setupNotifications();
+
+    // Initialize real-time notifications for the logged-in user
+    let unsubscribe: any;
+    if (user?.$id) {
+      unsubscribe = initializeRealTimeNotifications(user?.$id);
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [user?.$id]);
 
   useEffect(() => {
     // Fetch user details on mount
@@ -51,7 +77,7 @@ const App: React.FC = () => {
         مرحباً، {user?.Details?.name || user?.userName || "المستخدم"}
       </Text>
       <CustomButton
-        handlePress={() => router.push("/(tabs)")}
+        handlePress={() => router.push("/(tabs)/home")}
         title="الانتقال إلى الصفحة الرئيسية"
       />
       <StatusBar style="auto" />

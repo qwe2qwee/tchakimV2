@@ -1,15 +1,19 @@
 import { View, TouchableOpacity, Text, Image, Keyboard } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { icons } from "../../constants";
 import SignIn from "./login";
 import SignUp from "./signup";
+import { useUserStore } from "@/store/userStore"; // Assuming userStore has the language state
+import { translationMain } from "@/constants/lang";
 
 export default function AuthIndex() {
   const [activePage, setActivePage] = useState<"sign-in" | "sign-up">(
     "sign-in"
   );
+
+  const { language } = useUserStore(); // Access the language from the user store
+  const t = translationMain[language]; // Get translations based on the current language
 
   const handlePageSwitch = (page: "sign-in" | "sign-up") => {
     Keyboard.dismiss(); // Close the keyboard
@@ -20,7 +24,11 @@ export default function AuthIndex() {
     <SafeAreaView className="w-full h-full bg-secondary">
       {/* Logo Section */}
       <View className="h-[20vh] justify-center items-center">
-        <Image source={icons.logo} resizeMode="contain" className="w-40 h-40" />
+        <Image
+          source={icons.authLogo}
+          resizeMode="contain"
+          className="w-40 h-40"
+        />
       </View>
 
       {/* Navigation Tabs */}
@@ -38,7 +46,7 @@ export default function AuthIndex() {
                   : "text-gray-500"
               }`}
             >
-              {type === "sign-in" ? "تسجيل الدخول" : "تسجيل"}
+              {type === "sign-in" ? t.signIn : t.signUp}
             </Text>
           </TouchableOpacity>
         ))}

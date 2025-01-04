@@ -17,6 +17,7 @@ interface CustomButtonProps {
   isDisable?: boolean;
   con?: boolean;
   cancel?: boolean;
+  classNamee?: string;
   loguot?: boolean;
 }
 
@@ -27,6 +28,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   textStyles = "",
   isLoading = false,
   isDisable = false,
+  classNamee = "",
   con = false,
   cancel = false,
   loguot = false,
@@ -40,7 +42,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       className={`bg-primary rounded-full min-h-[40px] w-64 flex-row justify-center items-center
         
         ${isLoading || isDisable ? "opacity-50" : ""}
-       ${containerStyles}`}
+       ${containerStyles}  ${classNamee}`}
     >
       {isLoading ? (
         <ActivityIndicator

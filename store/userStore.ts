@@ -18,6 +18,8 @@ interface UserDetails {
 interface User {
   $id: string;
   email: string;
+  phone: string;
+  city: string;
   userName: string;
   Details?: UserDetails;
 }
@@ -28,7 +30,7 @@ interface UserStore {
   loading: boolean;
   views: number;
   rates: number;
-  language: string;
+  language: "ar" | "en" | "fr";
   error: string | null;
 
   // Functions
@@ -37,6 +39,7 @@ interface UserStore {
   fetchUserDetails: () => Promise<void>;
   signOutUser: () => Promise<void>;
   updateUserViews: (newViews: number) => void;
+  updateUserCity: (newCity: string) => Promise<void>;
   updateUserData: (updatedData: Partial<UserDetails>) => Promise<void>;
   setLoading: (loading: boolean) => void;
   setError: (message: string | null) => void;
@@ -85,7 +88,7 @@ export const useUserStore = create<UserStore>()(
       setError: (message) => set({ error: message }),
 
       // Set Language
-      setLanguage: (lang: string) => set({ language: lang }),
+      setLanguage: (lang: any) => set({ language: lang }),
 
       // Fetch Basic User Data
       fetchBasicUserData: async () => {
@@ -104,7 +107,10 @@ export const useUserStore = create<UserStore>()(
             user: {
               $id: currentUser.$id,
               email: currentUser.email,
+              phone: currentUser.phone,
               userName: currentUser.userName,
+              city: currentUser.city || "", // Add city here
+
               Details: parsedDetails,
             },
             isLogged: true,
@@ -154,6 +160,31 @@ export const useUserStore = create<UserStore>()(
         }, set);
       },
 
+      updateUserCity: async (newCity: string) => {
+        if (!newCity) {
+          get().setError("City cannot be empty.");
+          return;
+        }
+
+        await withLoadingAndError(async () => {
+          const user = get().user;
+          if (!user || !user.$id) return;
+
+          // Update the city in the database
+          await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.usersCollectionId,
+            user.$id,
+            { City: newCity }
+          );
+
+          // Update the local state
+          set((state: any) => ({
+            user: { ...state.user, city: newCity },
+          }));
+        }, set);
+      },
+
       // Update User Views
       updateUserViews: (newViews: number) => {
         const user = get().user;
@@ -165,7 +196,7 @@ export const useUserStore = create<UserStore>()(
             ...state.user,
             Details: {
               ...(state.user?.Details || {}),
-              views: newViews.toString(),
+              views: newViews?.toString(),
             },
           },
         }));

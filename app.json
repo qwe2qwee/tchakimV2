@@ -1,19 +1,22 @@
 {
   "expo": {
-    "name": "TchackimV2",
-    "slug": "TchackimV2",
+    "name": "Tchackim",
+    "slug": "Tchackim",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "tchackim",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
+      "package": "com.tchakem12.app",
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
+        "package": "com.tchakem12.app",
         "backgroundColor": "#ffffff"
       }
     },

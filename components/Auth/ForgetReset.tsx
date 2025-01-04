@@ -7,7 +7,6 @@ import {
   Platform,
   Image,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../constants";
@@ -23,6 +22,8 @@ import CustomButton from "../ui/CustomButton";
 import VerifictionEandP from "./VerifictionEandP";
 import ErrorModal from "../ui/ErrorModal";
 import Toast from "react-native-toast-message";
+import { useUserStore } from "@/store/userStore";
+import { translationForget } from "@/constants/lang";
 
 interface ForgetResetProps {
   type: "email" | "phone";
@@ -38,7 +39,10 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
   const [isOtpModalVisible, setIsOtpModalVisible] = useState(false);
   const [userId, setUserId] = useState("");
 
+  const { language } = useUserStore(); // Assuming language state is in user store
+
   const isPhone = type === "phone";
+  const t = translationForget[language]; // Get translations based on current language
 
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -66,7 +70,7 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
 
   const handleSendOtp = async () => {
     if (!form.value.trim()) {
-      showError("يرجى إدخال رقم الجوال أو البريد الإلكتروني", false);
+      showError(t.errorEmptyField, false);
       return;
     }
 
@@ -79,7 +83,7 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
       if (isPhone) {
         const phoneExists = await isPhoneNumberExisting(formattedValue);
         if (!phoneExists) {
-          showError("رقم الجوال غير موجود في التطبيق.", false);
+          showError(t.errorPhoneNotFound, false);
           return;
         }
         const userIdFromPhone = await sendOtpToPhone(formattedValue);
@@ -87,7 +91,7 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
       } else {
         const emailExists = await isEmailExisting(formattedValue);
         if (!emailExists) {
-          showError("البريد الإلكتروني غير موجود في التطبيق.", false);
+          showError(t.errorEmailNotFound, false);
           return;
         }
         await sendOtpToEmail(formattedValue);
@@ -96,7 +100,7 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
       setIsOtpModalVisible(true);
     } catch (error) {
       console.error("Failed to send OTP:", error);
-      showError("حدث خطأ أثناء إرسال OTP. حاول مرة أخرى.", false);
+      showError(t.sendOtpError, false);
     } finally {
       setIsLoading(false);
     }
@@ -150,11 +154,11 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
             className="w-52 h-48"
           />
           <Text className="font-sans-arabic-bold text-textDark mt-6 mb-12">
-            {isPhone ? "ادخل رقم جوالك" : "ادخل بريدك الإلكتروني"}
+            {isPhone ? t.enterPhone : t.enterEmail}
           </Text>
           <FormField
             title={isPhone ? "Phone" : "Email"}
-            placeholder={isPhone ? "رقم الجوال" : "البريد الإلكتروني"}
+            placeholder={isPhone ? t.phoneLabel : t.emailLabel}
             value={form.value}
             handleChangeText={handleChangeText}
             length={isPhone ? 9 : undefined}
@@ -169,12 +173,12 @@ const ForgetReset: React.FC<ForgetResetProps> = ({
               }
             >
               <Text className="text-[#F61F1F] text-xs">
-                {isPhone ? "البريد الإلكتروني؟" : "رقم الجوال؟"}
+                {isPhone ? t.emailLabel : t.phoneLabel}
               </Text>
             </TouchableOpacity>
           </View>
           <CustomButton
-            title="متابعة"
+            title={t.continue}
             isLoading={isLoading}
             handlePress={handleSendOtp}
           />

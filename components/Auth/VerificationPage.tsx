@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Alert, Image, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
-import OtpInputs from "react-native-otp-inputs-expo";
+import { StatusBar } from "expo-status-bar";
 
+import OtpInputs from "react-native-otp-inputs-expo";
 import { icons } from "../../constants";
 import { UpdatePhoneNumberAndSendOTP } from "@/lib/UpdatePhoneNumberAndSendOTP";
 import { createUser, sendOtpToEmail, updatePhoneNumber } from "@/lib/api";
 import CustomButton from "../ui/CustomButton";
-import { StatusBar } from "expo-status-bar";
 import CustomOtpInputs from "./CustomOtpInputs";
 import ErrorModal from "../ui/ErrorModal";
+import { useUserStore } from "@/store/userStore";
+import { translationsVerificationSignup } from "@/constants/lang";
 
 interface VerificationPageProps {
   ismodal: boolean;
@@ -36,21 +38,25 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isSecuss, setIsSecuss] = useState(false);
 
-  const showError = (message: string, isSecusss: boolean) => {
-    setErrorMessage(message);
-    setIsSecuss(isSecusss);
-    setIsModalVisible(true);
-  };
-  const handleClose = () => {
-    setIsModalVisible(false);
-    setErrorMessage("");
-  };
+  const { language } = useUserStore(); // Assuming `language` state exists
+  const t = translationsVerificationSignup[language]; // Get translations for current language
 
   const phoneOrEmail = isphone ? `+966${form?.phone}` : form.email;
 
   useEffect(() => {
     setOtp(""); // Reset OTP input on modal open/close
   }, [ismodal]);
+
+  const showError = (message: string, isSecusss: boolean) => {
+    setErrorMessage(message);
+    setIsSecuss(isSecusss);
+    setIsModalVisible(true);
+  };
+
+  const handleClose = () => {
+    setIsModalVisible(false);
+    setErrorMessage("");
+  };
 
   const resendCode = () => {
     if (isphone && !hasPressed) {
@@ -68,7 +74,7 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
   };
 
   const verifyOtp = async () => {
-    if (otp.length < 4) return showError("الرجاء ملء كل الخانات", false);
+    if (otp.length < 4) return showError(t.enterOtp, false);
 
     const AUTH_KEY =
       "$2y$10$c57cHaWGuddWl/V/9MzDGOoguNMw.FR5A5cVi7kzysgWGGgPQgXv2";
@@ -87,7 +93,7 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
         }
       );
 
-      if (!response.ok) throw new Error("Invalid OTP");
+      if (!response.ok) throw new Error(t.otpFailed);
 
       if (forcreat && isphone) {
         await createUser(form.email, form.password, form.name, phoneOrEmail);
@@ -97,7 +103,7 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
       setIsModalVisible(false);
       onSuccess && onSuccess();
     } catch (error) {
-      showError("فشل التحقق، حاول مرة أخرى.", false);
+      showError(t.otpFailed, false);
     } finally {
       setIsSubmitting(false);
     }
@@ -115,7 +121,7 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
         <Image source={icons.sendpassLogo} className="w-36 h-48" />
 
         <Text className="mt-4 mb-2 text-primary text-base">
-          {isphone ? "التحقق من رقم الجوال" : "التحقق من البريد الإلكتروني"}
+          {isphone ? t.verifyPhone : t.verifyEmail}
         </Text>
         <Text className="mb-5 text-textLight">{phoneOrEmail}</Text>
 
@@ -125,14 +131,14 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
         />
 
         <CustomButton
-          title="متابعة"
+          title={t.continue}
           handlePress={verifyOtp}
           isLoading={isSubmitting}
         />
 
         <TouchableOpacity onPress={resendCode} disabled={hasPressed}>
           <Text className="text-primary mt-4">
-            {hasPressed ? "تم إعادة إرسال الكود" : "إعادة إرسال الكود"}
+            {hasPressed ? t.codeResent : t.resendCode}
           </Text>
         </TouchableOpacity>
       </View>
@@ -142,6 +148,7 @@ const VerificationPage: React.FC<VerificationPageProps> = ({
         message={errorMessage}
         onClose={handleClose}
         isSecuss={isSecuss}
+        language={language}
       />
     </Modal>
   );

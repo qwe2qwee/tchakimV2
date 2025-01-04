@@ -67,245 +67,823 @@ export const errorMessagesAPI = {
 // Options for the category dropdowns
 export const categoryOptions = {
   category1: [
-    { label: "الأجهزة", value: "devices" },
-    { label: "العقارات", value: "real_estate" },
-    { label: "السيارات", value: "cars" },
-    { label: "أدوات منزلية", value: "home_appliance" },
-    { label: "اعمال", value: "jobs" },
-    { label: "مستلزمات شخصية", value: "personal_items" },
+    {
+      label: { ar: "الأجهزة", en: "Devices", fr: "Appareils" },
+      value: "devices",
+    },
+    {
+      label: { ar: "العقارات", en: "Real Estate", fr: "Immobilier" },
+      value: "real_estate",
+    },
+    {
+      label: { ar: "السيارات", en: "Cars", fr: "Voitures" },
+      value: "cars",
+    },
+    {
+      label: {
+        ar: "أدوات منزلية",
+        en: "Home Appliances",
+        fr: "Électroménager",
+      },
+      value: "home_appliance",
+    },
+    {
+      label: { ar: "اعمال", en: "Jobs", fr: "Emplois" },
+      value: "jobs",
+    },
+    {
+      label: {
+        ar: "مستلزمات شخصية",
+        en: "Personal Items",
+        fr: "Articles Personnels",
+      },
+      value: "personal_items",
+    },
   ],
   category2: {
     devices: [
-      { label: "iPhone", value: "iphone" },
-      { label: "Android", value: "android" },
-      { label: "Laptop", value: "laptop" },
-      { label: "Tablet", value: "tablet" },
-      { label: "Smartwatch", value: "smartwatch" },
+      { label: { ar: "آيفون", en: "iPhone", fr: "iPhone" }, value: "iphone" },
+      {
+        label: { ar: "أندرويد", en: "Android", fr: "Android" },
+        value: "android",
+      },
+      {
+        label: { ar: "لابتوب", en: "Laptop", fr: "Ordinateur Portable" },
+        value: "laptop",
+      },
+      { label: { ar: "تابلت", en: "Tablet", fr: "Tablette" }, value: "tablet" },
+      {
+        label: { ar: "ساعة ذكية", en: "Smartwatch", fr: "Montre Intelligente" },
+        value: "smartwatch",
+      },
     ],
     real_estate: [
-      { label: "شقة", value: "apartment" },
-      { label: "فيلا", value: "villa" },
-      { label: "مكتب", value: "office" },
-      { label: "أرض", value: "land" },
-      { label: "محل", value: "shop" },
+      {
+        label: { ar: "شقة", en: "Apartment", fr: "Appartement" },
+        value: "apartment",
+      },
+      { label: { ar: "فيلا", en: "Villa", fr: "Villa" }, value: "villa" },
+      { label: { ar: "مكتب", en: "Office", fr: "Bureau" }, value: "office" },
+      { label: { ar: "أرض", en: "Land", fr: "Terrain" }, value: "land" },
+      { label: { ar: "محل", en: "Shop", fr: "Magasin" }, value: "shop" },
     ],
     cars: [
-      { label: "سيارة صغيرة", value: "small_car" },
-      { label: "سيارة كبيرة", value: "big_car" },
-      { label: "شاحنة", value: "truck" },
-      { label: "دراجة نارية", value: "motorcycle" },
-      { label: "SUV", value: "suv" },
+      {
+        label: { ar: "سيارة صغيرة", en: "Small Car", fr: "Petite Voiture" },
+        value: "small_car",
+      },
+      {
+        label: { ar: "سيارة كبيرة", en: "Big Car", fr: "Grande Voiture" },
+        value: "big_car",
+      },
+      { label: { ar: "شاحنة", en: "Truck", fr: "Camion" }, value: "truck" },
+      {
+        label: { ar: "دراجة نارية", en: "Motorcycle", fr: "Moto" },
+        value: "motorcycle",
+      },
+      { label: { ar: "SUV", en: "SUV", fr: "SUV" }, value: "suv" },
     ],
     home_appliance: [
-      { label: "ثلاجة", value: "fridge" },
-      { label: "غسالة", value: "washing_machine" },
-      { label: "مكيف", value: "air_conditioner" },
-      { label: "فرن", value: "oven" },
-      { label: "مايكروويف", value: "microwave" },
+      {
+        label: { ar: "ثلاجة", en: "Fridge", fr: "Réfrigérateur" },
+        value: "fridge",
+      },
+      {
+        label: { ar: "غسالة", en: "Washing Machine", fr: "Machine à Laver" },
+        value: "washing_machine",
+      },
+      {
+        label: { ar: "مكيف", en: "Air Conditioner", fr: "Climatiseur" },
+        value: "air_conditioner",
+      },
+      { label: { ar: "فرن", en: "Oven", fr: "Four" }, value: "oven" },
+      {
+        label: { ar: "مايكروويف", en: "Microwave", fr: "Micro-ondes" },
+        value: "microwave",
+      },
     ],
     jobs: [
-      { label: "مهندس", value: "engineer" },
-      { label: "محاسب", value: "accountant" },
-      { label: "مطور برامج", value: "software_developer" },
-      { label: "مدير", value: "manager" },
-      { label: "معلم", value: "teacher" },
+      {
+        label: { ar: "مهندس", en: "Engineer", fr: "Ingénieur" },
+        value: "engineer",
+      },
+      {
+        label: { ar: "محاسب", en: "Accountant", fr: "Comptable" },
+        value: "accountant",
+      },
+      {
+        label: {
+          ar: "مطور برامج",
+          en: "Software Developer",
+          fr: "Développeur Logiciel",
+        },
+        value: "software_developer",
+      },
+      { label: { ar: "مدير", en: "Manager", fr: "Manager" }, value: "manager" },
+      {
+        label: { ar: "معلم", en: "Teacher", fr: "Enseignant" },
+        value: "teacher",
+      },
     ],
     personal_items: [
-      { label: "ملابس", value: "clothes" },
-      { label: "أحذية", value: "shoes" },
-      { label: "إكسسوارات", value: "accessories" },
-      { label: "حقائب", value: "bags" },
-      { label: "مستحضرات تجميل", value: "cosmetics" },
+      {
+        label: { ar: "ملابس", en: "Clothes", fr: "Vêtements" },
+        value: "clothes",
+      },
+      { label: { ar: "أحذية", en: "Shoes", fr: "Chaussures" }, value: "shoes" },
+      {
+        label: { ar: "إكسسوارات", en: "Accessories", fr: "Accessoires" },
+        value: "accessories",
+      },
+      { label: { ar: "حقائب", en: "Bags", fr: "Sacs" }, value: "bags" },
+      {
+        label: { ar: "مستحضرات تجميل", en: "Cosmetics", fr: "Cosmétiques" },
+        value: "cosmetics",
+      },
     ],
   },
   category3: {
     iphone: [
-      { label: "iPhone X", value: "iphone_x" },
-      { label: "iPhone 11", value: "iphone_11" },
-      { label: "iPhone 12", value: "iphone_12" },
-      { label: "iPhone 13", value: "iphone_13" },
+      {
+        label: { ar: "آيفون X", en: "iPhone X", fr: "iPhone X" },
+        value: "iphone_x",
+      },
+      {
+        label: { ar: "آيفون 11", en: "iPhone 11", fr: "iPhone 11" },
+        value: "iphone_11",
+      },
+      {
+        label: { ar: "آيفون 12", en: "iPhone 12", fr: "iPhone 12" },
+        value: "iphone_12",
+      },
+      {
+        label: { ar: "آيفون 13", en: "iPhone 13", fr: "iPhone 13" },
+        value: "iphone_13",
+      },
     ],
     android: [
-      { label: "Samsung Galaxy", value: "galaxy" },
-      { label: "Google Pixel", value: "pixel" },
-      { label: "OnePlus", value: "oneplus" },
-      { label: "Xiaomi", value: "xiaomi" },
+      {
+        label: {
+          ar: "سامسونج جالاكسي",
+          en: "Samsung Galaxy",
+          fr: "Samsung Galaxy",
+        },
+        value: "galaxy",
+      },
+      {
+        label: { ar: "جوجل بيكسل", en: "Google Pixel", fr: "Google Pixel" },
+        value: "pixel",
+      },
+      {
+        label: { ar: "ون بلس", en: "OnePlus", fr: "OnePlus" },
+        value: "oneplus",
+      },
+      { label: { ar: "شاومي", en: "Xiaomi", fr: "Xiaomi" }, value: "xiaomi" },
     ],
     laptop: [
-      { label: "MacBook", value: "macbook" },
-      { label: "Dell XPS", value: "xps" },
-      { label: "HP Spectre", value: "spectre" },
-      { label: "Lenovo ThinkPad", value: "thinkpad" },
+      {
+        label: { ar: "ماك بوك", en: "MacBook", fr: "MacBook" },
+        value: "macbook",
+      },
+      {
+        label: { ar: "ديل XPS", en: "Dell XPS", fr: "Dell XPS" },
+        value: "xps",
+      },
+      {
+        label: { ar: "إتش بي سبيكتر", en: "HP Spectre", fr: "HP Spectre" },
+        value: "spectre",
+      },
+      {
+        label: {
+          ar: "لينوفو ثينك باد",
+          en: "Lenovo ThinkPad",
+          fr: "Lenovo ThinkPad",
+        },
+        value: "thinkpad",
+      },
     ],
     tablet: [
-      { label: "iPad", value: "ipad" },
-      { label: "Samsung Tab", value: "samsung_tab" },
-      { label: "Microsoft Surface", value: "surface" },
-      { label: "Lenovo Tab", value: "lenovo_tab" },
+      { label: { ar: "آيباد", en: "iPad", fr: "iPad" }, value: "ipad" },
+      {
+        label: { ar: "سامسونج تاب", en: "Samsung Tab", fr: "Samsung Tab" },
+        value: "samsung_tab",
+      },
+      {
+        label: {
+          ar: "مايكروسوفت سيرفس",
+          en: "Microsoft Surface",
+          fr: "Microsoft Surface",
+        },
+        value: "surface",
+      },
+      {
+        label: { ar: "لينوفو تاب", en: "Lenovo Tab", fr: "Lenovo Tab" },
+        value: "lenovo_tab",
+      },
     ],
     smartwatch: [
-      { label: "Apple Watch", value: "apple_watch" },
-      { label: "Samsung Galaxy Watch", value: "galaxy_watch" },
-      { label: "Fitbit", value: "fitbit" },
-      { label: "Garmin", value: "garmin" },
+      {
+        label: { ar: "ساعة آبل", en: "Apple Watch", fr: "Apple Watch" },
+        value: "apple_watch",
+      },
+      {
+        label: { ar: "ساعة جالاكسي", en: "Galaxy Watch", fr: "Galaxy Watch" },
+        value: "galaxy_watch",
+      },
+      { label: { ar: "فيتبيت", en: "Fitbit", fr: "Fitbit" }, value: "fitbit" },
+      { label: { ar: "جارمين", en: "Garmin", fr: "Garmin" }, value: "garmin" },
     ],
     apartment: [
-      { label: "2 غرف نوم", value: "2_bedroom" },
-      { label: "3 غرف نوم", value: "3_bedroom" },
-      { label: "1 غرفة نوم", value: "1_bedroom" },
+      {
+        label: { ar: "2 غرف نوم", en: "2 Bedrooms", fr: "2 Chambres" },
+        value: "2_bedroom",
+      },
+      {
+        label: { ar: "3 غرف نوم", en: "3 Bedrooms", fr: "3 Chambres" },
+        value: "3_bedroom",
+      },
+      {
+        label: { ar: "1 غرفة نوم", en: "1 Bedroom", fr: "1 Chambre" },
+        value: "1_bedroom",
+      },
     ],
     villa: [
-      { label: "فيلا صغيرة", value: "small_villa" },
-      { label: "فيلا كبيرة", value: "big_villa" },
-      { label: "فيلا فاخرة", value: "luxury_villa" },
+      {
+        label: { ar: "فيلا صغيرة", en: "Small Villa", fr: "Petite Villa" },
+        value: "small_villa",
+      },
+      {
+        label: { ar: "فيلا كبيرة", en: "Big Villa", fr: "Grande Villa" },
+        value: "big_villa",
+      },
+      {
+        label: { ar: "فيلا فاخرة", en: "Luxury Villa", fr: "Villa de Luxe" },
+        value: "luxury_villa",
+      },
     ],
     office: [
-      { label: "مكتب صغير", value: "small_office" },
-      { label: "مكتب كبير", value: "big_office" },
-      { label: "مكتب مشترك", value: "shared_office" },
+      {
+        label: { ar: "مكتب صغير", en: "Small Office", fr: "Petit Bureau" },
+        value: "small_office",
+      },
+      {
+        label: { ar: "مكتب كبير", en: "Big Office", fr: "Grand Bureau" },
+        value: "big_office",
+      },
+      {
+        label: { ar: "مكتب مشترك", en: "Shared Office", fr: "Bureau Partagé" },
+        value: "shared_office",
+      },
     ],
     small_car: [
-      { label: "Toyota Yaris", value: "yaris" },
-      { label: "Honda Fit", value: "fit" },
-      { label: "Hyundai i10", value: "i10" },
+      {
+        label: { ar: "تويوتا يارس", en: "Toyota Yaris", fr: "Toyota Yaris" },
+        value: "yaris",
+      },
+      {
+        label: { ar: "هوندا فيت", en: "Honda Fit", fr: "Honda Fit" },
+        value: "fit",
+      },
+      {
+        label: { ar: "هيونداي i10", en: "Hyundai i10", fr: "Hyundai i10" },
+        value: "i10",
+      },
     ],
     big_car: [
-      { label: "Toyota Land Cruiser", value: "land_cruiser" },
-      { label: "Chevrolet Tahoe", value: "tahoe" },
-      { label: "Nissan Armada", value: "armada" },
+      {
+        label: {
+          ar: "تويوتا لاند كروزر",
+          en: "Toyota Land Cruiser",
+          fr: "Toyota Land Cruiser",
+        },
+        value: "land_cruiser",
+      },
+      {
+        label: {
+          ar: "شيفروليه تاهو",
+          en: "Chevrolet Tahoe",
+          fr: "Chevrolet Tahoe",
+        },
+        value: "tahoe",
+      },
+      {
+        label: { ar: "نيسان أرمادا", en: "Nissan Armada", fr: "Nissan Armada" },
+        value: "armada",
+      },
     ],
     truck: [
-      { label: "Ford F-150", value: "f150" },
-      { label: "Ram 1500", value: "ram_1500" },
-      { label: "Chevrolet Silverado", value: "silverado" },
+      {
+        label: { ar: "فورد F-150", en: "Ford F-150", fr: "Ford F-150" },
+        value: "f150",
+      },
+      {
+        label: { ar: "رام 1500", en: "Ram 1500", fr: "Ram 1500" },
+        value: "ram_1500",
+      },
+      {
+        label: {
+          ar: "شيفروليه سيلفرادو",
+          en: "Chevrolet Silverado",
+          fr: "Chevrolet Silverado",
+        },
+        value: "silverado",
+      },
     ],
     engineer: [
-      { label: "مهندس كهرباء", value: "electrical_engineer" },
-      { label: "مهندس مدني", value: "civil_engineer" },
-      { label: "مهندس ميكانيكي", value: "mechanical_engineer" },
-      { label: "مهندس معماري", value: "architect" },
+      {
+        label: {
+          ar: "مهندس كهرباء",
+          en: "Electrical Engineer",
+          fr: "Ingénieur Électrique",
+        },
+        value: "electrical_engineer",
+      },
+      {
+        label: {
+          ar: "مهندس مدني",
+          en: "Civil Engineer",
+          fr: "Ingénieur Civil",
+        },
+        value: "civil_engineer",
+      },
+      {
+        label: {
+          ar: "مهندس ميكانيكي",
+          en: "Mechanical Engineer",
+          fr: "Ingénieur Mécanique",
+        },
+        value: "mechanical_engineer",
+      },
+      {
+        label: { ar: "مهندس معماري", en: "Architect", fr: "Architecte" },
+        value: "architect",
+      },
     ],
     accountant: [
-      { label: "محاسب تكاليف", value: "cost_accountant" },
-      { label: "محاسب إداري", value: "management_accountant" },
-      { label: "محاسب مالي", value: "financial_accountant" },
+      {
+        label: {
+          ar: "محاسب تكاليف",
+          en: "Cost Accountant",
+          fr: "Comptable des Coûts",
+        },
+        value: "cost_accountant",
+      },
+      {
+        label: {
+          ar: "محاسب إداري",
+          en: "Management Accountant",
+          fr: "Comptable de Gestion",
+        },
+        value: "management_accountant",
+      },
+      {
+        label: {
+          ar: "محاسب مالي",
+          en: "Financial Accountant",
+          fr: "Comptable Financier",
+        },
+        value: "financial_accountant",
+      },
     ],
     software_developer: [
-      { label: "مطور تطبيقات", value: "app_developer" },
-      { label: "مطور ويب", value: "web_developer" },
-      { label: "مطور واجهات", value: "frontend_developer" },
-      { label: "مطور خلفيات", value: "backend_developer" },
+      {
+        label: {
+          ar: "مطور تطبيقات",
+          en: "App Developer",
+          fr: "Développeur d'Applications",
+        },
+        value: "app_developer",
+      },
+      {
+        label: { ar: "مطور ويب", en: "Web Developer", fr: "Développeur Web" },
+        value: "web_developer",
+      },
+      {
+        label: {
+          ar: "مطور واجهات",
+          en: "Frontend Developer",
+          fr: "Développeur Frontend",
+        },
+        value: "frontend_developer",
+      },
+      {
+        label: {
+          ar: "مطور خلفيات",
+          en: "Backend Developer",
+          fr: "Développeur Backend",
+        },
+        value: "backend_developer",
+      },
     ],
     manager: [
-      { label: "مدير مشروع", value: "project_manager" },
-      { label: "مدير مبيعات", value: "sales_manager" },
-      { label: "مدير تسويق", value: "marketing_manager" },
-      { label: "مدير موارد بشرية", value: "hr_manager" },
+      {
+        label: {
+          ar: "مدير مشروع",
+          en: "Project Manager",
+          fr: "Chef de Projet",
+        },
+        value: "project_manager",
+      },
+      {
+        label: {
+          ar: "مدير مبيعات",
+          en: "Sales Manager",
+          fr: "Responsable des Ventes",
+        },
+        value: "sales_manager",
+      },
+      {
+        label: {
+          ar: "مدير تسويق",
+          en: "Marketing Manager",
+          fr: "Responsable Marketing",
+        },
+        value: "marketing_manager",
+      },
+      {
+        label: {
+          ar: "مدير موارد بشرية",
+          en: "HR Manager",
+          fr: "Responsable RH",
+        },
+        value: "hr_manager",
+      },
     ],
     teacher: [
-      { label: "مدرس رياضيات", value: "math_teacher" },
-      { label: "مدرس علوم", value: "science_teacher" },
-      { label: "مدرس لغة عربية", value: "arabic_teacher" },
-      { label: "مدرس إنجليزي", value: "english_teacher" },
+      {
+        label: {
+          ar: "مدرس رياضيات",
+          en: "Math Teacher",
+          fr: "Professeur de Mathématiques",
+        },
+        value: "math_teacher",
+      },
+      {
+        label: {
+          ar: "مدرس علوم",
+          en: "Science Teacher",
+          fr: "Professeur de Sciences",
+        },
+        value: "science_teacher",
+      },
+      {
+        label: {
+          ar: "مدرس لغة عربية",
+          en: "Arabic Teacher",
+          fr: "Professeur d'Arabe",
+        },
+        value: "arabic_teacher",
+      },
+      {
+        label: {
+          ar: "مدرس إنجليزي",
+          en: "English Teacher",
+          fr: "Professeur d'Anglais",
+        },
+        value: "english_teacher",
+      },
     ],
     clothes: [
-      { label: "تيشيرت", value: "tshirt" },
-      { label: "بنطلون", value: "trousers" },
-      { label: "قميص", value: "shirt" },
-      { label: "فستان", value: "dress" },
+      {
+        label: { ar: "تيشيرت", en: "T-shirt", fr: "T-shirt" },
+        value: "tshirt",
+      },
+      {
+        label: { ar: "بنطلون", en: "Trousers", fr: "Pantalon" },
+        value: "trousers",
+      },
+      { label: { ar: "قميص", en: "Shirt", fr: "Chemise" }, value: "shirt" },
+      { label: { ar: "فستان", en: "Dress", fr: "Robe" }, value: "dress" },
     ],
     shoes: [
-      { label: "حذاء رياضي", value: "sports_shoes" },
-      { label: "حذاء رسمي", value: "formal_shoes" },
-      { label: "حذاء صيفي", value: "sandals" },
-      { label: "حذاء شتوي", value: "winter_shoes" },
+      {
+        label: {
+          ar: "حذاء رياضي",
+          en: "Sports Shoes",
+          fr: "Chaussures de Sport",
+        },
+        value: "sports_shoes",
+      },
+      {
+        label: {
+          ar: "حذاء رسمي",
+          en: "Formal Shoes",
+          fr: "Chaussures Habillées",
+        },
+        value: "formal_shoes",
+      },
+      {
+        label: { ar: "حذاء صيفي", en: "Sandals", fr: "Sandales" },
+        value: "sandals",
+      },
+      {
+        label: { ar: "حذاء شتوي", en: "Winter Shoes", fr: "Bottes d'Hiver" },
+        value: "winter_shoes",
+      },
     ],
     accessories: [
-      { label: "ساعة يد", value: "watch" },
-      { label: "نظارة شمسية", value: "sunglasses" },
-      { label: "سوار", value: "bracelet" },
-      { label: "خاتم", value: "ring" },
+      { label: { ar: "ساعة يد", en: "Watch", fr: "Montre" }, value: "watch" },
+      {
+        label: {
+          ar: "نظارة شمسية",
+          en: "Sunglasses",
+          fr: "Lunettes de Soleil",
+        },
+        value: "sunglasses",
+      },
+      {
+        label: { ar: "سوار", en: "Bracelet", fr: "Bracelet" },
+        value: "bracelet",
+      },
+      { label: { ar: "خاتم", en: "Ring", fr: "Bague" }, value: "ring" },
     ],
     bags: [
-      { label: "حقيبة يد", value: "handbag" },
-      { label: "حقيبة ظهر", value: "backpack" },
-      { label: "حقيبة سفر", value: "travel_bag" },
-      { label: "حقيبة رياضية", value: "gym_bag" },
+      {
+        label: { ar: "حقيبة يد", en: "Handbag", fr: "Sac à Main" },
+        value: "handbag",
+      },
+      {
+        label: { ar: "حقيبة ظهر", en: "Backpack", fr: "Sac à Dos" },
+        value: "backpack",
+      },
+      {
+        label: { ar: "حقيبة سفر", en: "Travel Bag", fr: "Sac de Voyage" },
+        value: "travel_bag",
+      },
+      {
+        label: { ar: "حقيبة رياضية", en: "Gym Bag", fr: "Sac de Sport" },
+        value: "gym_bag",
+      },
     ],
     cosmetics: [
-      { label: "كريم أساس", value: "foundation" },
-      { label: "أحمر شفاه", value: "lipstick" },
-      { label: "ماسكارا", value: "mascara" },
-      { label: "بودرة وجه", value: "face_powder" },
+      {
+        label: { ar: "كريم أساس", en: "Foundation", fr: "Fond de Teint" },
+        value: "foundation",
+      },
+      {
+        label: { ar: "أحمر شفاه", en: "Lipstick", fr: "Rouge à Lèvres" },
+        value: "lipstick",
+      },
+      {
+        label: { ar: "ماسكارا", en: "Mascara", fr: "Mascara" },
+        value: "mascara",
+      },
+      {
+        label: { ar: "بودرة وجه", en: "Face Powder", fr: "Poudre Visage" },
+        value: "face_powder",
+      },
     ],
     land: [
-      { label: "أرض سكنية", value: "residential_land" },
-      { label: "أرض تجارية", value: "commercial_land" },
-      { label: "أرض زراعية", value: "agricultural_land" },
-      { label: "أرض صناعية", value: "industrial_land" },
+      {
+        label: {
+          ar: "أرض سكنية",
+          en: "Residential Land",
+          fr: "Terrain Résidentiel",
+        },
+        value: "residential_land",
+      },
+      {
+        label: {
+          ar: "أرض تجارية",
+          en: "Commercial Land",
+          fr: "Terrain Commercial",
+        },
+        value: "commercial_land",
+      },
+      {
+        label: {
+          ar: "أرض زراعية",
+          en: "Agricultural Land",
+          fr: "Terrain Agricole",
+        },
+        value: "agricultural_land",
+      },
+      {
+        label: {
+          ar: "أرض صناعية",
+          en: "Industrial Land",
+          fr: "Terrain Industriel",
+        },
+        value: "industrial_land",
+      },
     ],
     shop: [
-      { label: "محل تجاري", value: "commercial_shop" },
-      { label: "محل صغير", value: "small_shop" },
-      { label: "محل كبير", value: "large_shop" },
-      { label: "محل متعدد الأقسام", value: "department_store" },
+      {
+        label: {
+          ar: "محل تجاري",
+          en: "Commercial Shop",
+          fr: "Boutique Commerciale",
+        },
+        value: "commercial_shop",
+      },
+      {
+        label: { ar: "محل صغير", en: "Small Shop", fr: "Petite Boutique" },
+        value: "small_shop",
+      },
+      {
+        label: { ar: "محل كبير", en: "Large Shop", fr: "Grande Boutique" },
+        value: "large_shop",
+      },
+      {
+        label: {
+          ar: "محل متعدد الأقسام",
+          en: "Department Store",
+          fr: "Grand Magasin",
+        },
+        value: "department_store",
+      },
     ],
     fridge: [
-      { label: "ثلاجة سامسونج", value: "samsung_fridge" },
-      { label: "ثلاجة LG", value: "lg_fridge" },
-      { label: "ثلاجة هيتاشي", value: "hitachi_fridge" },
-      { label: "ثلاجة باناسونيك", value: "panasonic_fridge" },
+      {
+        label: {
+          ar: "ثلاجة سامسونج",
+          en: "Samsung Fridge",
+          fr: "Réfrigérateur Samsung",
+        },
+        value: "samsung_fridge",
+      },
+      {
+        label: { ar: "ثلاجة LG", en: "LG Fridge", fr: "Réfrigérateur LG" },
+        value: "lg_fridge",
+      },
+      {
+        label: {
+          ar: "ثلاجة هيتاشي",
+          en: "Hitachi Fridge",
+          fr: "Réfrigérateur Hitachi",
+        },
+        value: "hitachi_fridge",
+      },
+      {
+        label: {
+          ar: "ثلاجة باناسونيك",
+          en: "Panasonic Fridge",
+          fr: "Réfrigérateur Panasonic",
+        },
+        value: "panasonic_fridge",
+      },
     ],
     washing_machine: [
-      { label: "غسالة سامسونج", value: "samsung_washing_machine" },
-      { label: "غسالة LG", value: "lg_washing_machine" },
-      { label: "غسالة هيتاشي", value: "hitachi_washing_machine" },
-      { label: "غسالة باناسونيك", value: "panasonic_washing_machine" },
+      {
+        label: {
+          ar: "غسالة سامسونج",
+          en: "Samsung Washing Machine",
+          fr: "Lave-linge Samsung",
+        },
+        value: "samsung_washing_machine",
+      },
+      {
+        label: {
+          ar: "غسالة LG",
+          en: "LG Washing Machine",
+          fr: "Lave-linge LG",
+        },
+        value: "lg_washing_machine",
+      },
+      {
+        label: {
+          ar: "غسالة هيتاشي",
+          en: "Hitachi Washing Machine",
+          fr: "Lave-linge Hitachi",
+        },
+        value: "hitachi_washing_machine",
+      },
+      {
+        label: {
+          ar: "غسالة باناسونيك",
+          en: "Panasonic Washing Machine",
+          fr: "Lave-linge Panasonic",
+        },
+        value: "panasonic_washing_machine",
+      },
     ],
     air_conditioner: [
-      { label: "مكيف سامسونج", value: "samsung_ac" },
-      { label: "مكيف LG", value: "lg_ac" },
-      { label: "مكيف هيتاشي", value: "hitachi_ac" },
-      { label: "مكيف باناسونيك", value: "panasonic_ac" },
+      {
+        label: {
+          ar: "مكيف سامسونج",
+          en: "Samsung AC",
+          fr: "Climatiseur Samsung",
+        },
+        value: "samsung_ac",
+      },
+      {
+        label: { ar: "مكيف LG", en: "LG AC", fr: "Climatiseur LG" },
+        value: "lg_ac",
+      },
+      {
+        label: {
+          ar: "مكيف هيتاشي",
+          en: "Hitachi AC",
+          fr: "Climatiseur Hitachi",
+        },
+        value: "hitachi_ac",
+      },
+      {
+        label: {
+          ar: "مكيف باناسونيك",
+          en: "Panasonic AC",
+          fr: "Climatiseur Panasonic",
+        },
+        value: "panasonic_ac",
+      },
     ],
     oven: [
-      { label: "فرن سامسونج", value: "samsung_oven" },
-      { label: "فرن LG", value: "lg_oven" },
-      { label: "فرن هيتاشي", value: "hitachi_oven" },
-      { label: "فرن باناسونيك", value: "panasonic_oven" },
+      {
+        label: { ar: "فرن سامسونج", en: "Samsung Oven", fr: "Four Samsung" },
+        value: "samsung_oven",
+      },
+      {
+        label: { ar: "فرن LG", en: "LG Oven", fr: "Four LG" },
+        value: "lg_oven",
+      },
+      {
+        label: { ar: "فرن هيتاشي", en: "Hitachi Oven", fr: "Four Hitachi" },
+        value: "hitachi_oven",
+      },
+      {
+        label: {
+          ar: "فرن باناسونيك",
+          en: "Panasonic Oven",
+          fr: "Four Panasonic",
+        },
+        value: "panasonic_oven",
+      },
     ],
     microwave: [
-      { label: "مايكروويف سامسونج", value: "samsung_microwave" },
-      { label: "مايكروويف LG", value: "lg_microwave" },
-      { label: "مايكروويف هيتاشي", value: "hitachi_microwave" },
-      { label: "مايكروويف باناسونيك", value: "panasonic_microwave" },
+      {
+        label: {
+          ar: "مايكروويف سامسونج",
+          en: "Samsung Microwave",
+          fr: "Micro-ondes Samsung",
+        },
+        value: "samsung_microwave",
+      },
+      {
+        label: { ar: "مايكروويف LG", en: "LG Microwave", fr: "Micro-ondes LG" },
+        value: "lg_microwave",
+      },
+      {
+        label: {
+          ar: "مايكروويف هيتاشي",
+          en: "Hitachi Microwave",
+          fr: "Micro-ondes Hitachi",
+        },
+        value: "hitachi_microwave",
+      },
+      {
+        label: {
+          ar: "مايكروويف باناسونيك",
+          en: "Panasonic Microwave",
+          fr: "Micro-ondes Panasonic",
+        },
+        value: "panasonic_microwave",
+      },
     ],
   },
-};
+} as any;
 
 export const chadCities = [
-  { label: "انجمينا", value: "n_djamena" },
-  { label: "موندو", value: "moundou" },
-  { label: "أبشي", value: "abéché" },
-  { label: "سار", value: "sarh" },
-  { label: "أم التيمان", value: "am_timane" },
-  { label: "بونغور", value: "bongor" },
-  { label: "كوكسري", value: "koumra" },
-  { label: "بيرا", value: "pala" },
-  { label: "دوما", value: "doba" },
-  { label: "فايا لارجو", value: "faya_largeau" },
-  { label: "أم جرس", value: "oum_hadjer" },
-  { label: "بيليتن", value: "bilia" },
-  { label: "أدو", value: "adoo" },
-  { label: "دغالا", value: "dogla" },
-  { label: "جويل", value: "guel" },
-  { label: "موسورو", value: "moussoro" },
-  { label: "بطلحا", value: "batangafo" },
-  { label: "موزوغوي", value: "mozogo" },
-  { label: "بيبي", value: "bebe" },
-  { label: "ماو", value: "mao" },
-  { label: "بباوا", value: "baboua" },
+  {
+    label: { ar: "انجمينا", en: "N'Djamena", fr: "N'Djamena" },
+    value: "n_djamena",
+  },
+  { label: { ar: "موندو", en: "Moundou", fr: "Moundou" }, value: "moundou" },
+  { label: { ar: "أبشي", en: "Abéché", fr: "Abéché" }, value: "abéché" },
+  { label: { ar: "سار", en: "Sarh", fr: "Sarh" }, value: "sarh" },
+  {
+    label: { ar: "أم التيمان", en: "Am Timane", fr: "Am Timane" },
+    value: "am_timane",
+  },
+  { label: { ar: "بونغور", en: "Bongor", fr: "Bongor" }, value: "bongor" },
+  { label: { ar: "كوكسري", en: "Koumra", fr: "Koumra" }, value: "koumra" },
+  { label: { ar: "بيرا", en: "Pala", fr: "Pala" }, value: "pala" },
+  { label: { ar: "دوما", en: "Doba", fr: "Doba" }, value: "doba" },
+  {
+    label: { ar: "فايا لارجو", en: "Faya Largeau", fr: "Faya Largeau" },
+    value: "faya_largeau",
+  },
+  {
+    label: { ar: "أم جرس", en: "Oum Hadjer", fr: "Oum Hadjer" },
+    value: "oum_hadjer",
+  },
+  { label: { ar: "بيليتن", en: "Bilia", fr: "Bilia" }, value: "bilia" },
+  { label: { ar: "أدو", en: "Adoo", fr: "Adoo" }, value: "adoo" },
+  { label: { ar: "دغالا", en: "Dogla", fr: "Dogla" }, value: "dogla" },
+  { label: { ar: "جويل", en: "Guel", fr: "Guel" }, value: "guel" },
+  {
+    label: { ar: "موسورو", en: "Moussoro", fr: "Moussoro" },
+    value: "moussoro",
+  },
+  {
+    label: { ar: "بطلحا", en: "Batangafo", fr: "Batangafo" },
+    value: "batangafo",
+  },
+  { label: { ar: "موزوغوي", en: "Mozogo", fr: "Mozogo" }, value: "mozogo" },
+  { label: { ar: "بيبي", en: "Bebe", fr: "Bebe" }, value: "bebe" },
+  { label: { ar: "ماو", en: "Mao", fr: "Mao" }, value: "mao" },
+  { label: { ar: "بباوا", en: "Baboua", fr: "Baboua" }, value: "baboua" },
 ];
+
 // Define the supported languages
 type Language = "en" | "ar" | "fr";
 
@@ -427,5 +1005,20 @@ export const formatViews = (views: number, lang: Language = "en"): string => {
     }
   }
 
-  return views.toString(); // Return raw number if below 1k
+  return views?.toString(); // Return raw number if below 1k
 };
+
+export const languages = [
+  {
+    label: { ar: "العربية", en: "Arabic", fr: "Arabe" },
+    value: "ar",
+  },
+  {
+    label: { ar: "الإنجليزية", en: "English", fr: "Anglais" },
+    value: "en",
+  },
+  {
+    label: { ar: "الفرنسية", en: "French", fr: "Français" },
+    value: "fr",
+  },
+];
