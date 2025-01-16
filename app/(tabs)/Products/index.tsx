@@ -191,7 +191,7 @@ const Products: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }} className="bg-bgcolor">
+    <SafeAreaView style={{ flex: 1 }} className="bg-white">
       <FlatList
         data={products}
         showsVerticalScrollIndicator={false}

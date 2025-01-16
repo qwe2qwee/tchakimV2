@@ -49,9 +49,7 @@ const NavTopH: React.FC<NavTopHProps> = ({
           <TouchableOpacity
             activeOpacity={0.7}
             className=" flex justify-center items-center p-[18px]  w-6 h-6 rounded-full bg-gray-200  ml-1"
-            onPress={() =>
-              handleToggleLanguage(language === "ar" ? "fr" : "ar")
-            }
+            onPress={toggleSidebar}
           >
             <Image
               source={icons.billH}

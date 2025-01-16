@@ -5,8 +5,8 @@ import SafeAreaScrollView from "./SafeAreaScrollView";
 
 const NotfoundPage = ({ text }: { text: string }) => {
   return (
-    <SafeAreaScrollView className=" flex justify-center items-center  bg-white ">
-      <View className=" justify-center items-center bg-white">
+    <SafeAreaScrollView className=" flex justify-center items-center ">
+      <View className=" justify-center items-center ">
         <Image
           source={icons.notFound}
           resizeMode="contain"
