@@ -81,7 +81,7 @@ const CardHome: React.FC<CardHomeProps> = ({
       if (existingChats.documents.length > 0) {
         const existingChat = existingChats.documents[0];
         router.push({
-          pathname: `/screens/Chat/chatRoom/[roomId]`,
+          pathname: `/screens/Chat/[roomId]`,
           params: {
             chadId: item.id as string,
             name: item.creator.name as string,
@@ -97,7 +97,7 @@ const CardHome: React.FC<CardHomeProps> = ({
           [user?.$id as string, item?.creator?.$id]
         );
         router.push({
-          pathname: `/screens/Chat/chatRoom/[roomId]`,
+          pathname: `/screens/Chat/[roomId]`,
           params: { chadId: item?.id, otherUserId: item?.creator?.$id },
         } as any);
       }
